@@ -85,21 +85,23 @@
 
 			}
 
-			$('.cs-' + el.id).mouseover(function(){
-				$('#cs-navigation-' + el.id).show();
-			});
+			if (!params[el.id].navigationPrevNextAlwaysShown) {
+				$('.cs-' + el.id).mouseover(function(){
+					$('#cs-navigation-' + el.id).show();
+				});
 
-			$('.cs-' + el.id).mouseout(function(){
-				$('#cs-navigation-' + el.id).hide();
-			});
+				$('.cs-' + el.id).mouseout(function(){
+					$('#cs-navigation-' + el.id).hide();
+				});
 
-			$('#cs-title-' + el.id).mouseover(function(){
-				$('#cs-navigation-' + el.id).show();
-			});
+				$('#cs-title-' + el.id).mouseover(function(){
+					$('#cs-navigation-' + el.id).show();
+				});
 
-			$('#cs-title-' + el.id).mouseout(function(){
-				$('#cs-navigation-' + el.id).hide();
-			});
+				$('#cs-title-' + el.id).mouseout(function(){
+					$('#cs-navigation-' + el.id).hide();
+				});
+			}
 
 			if (params[el.id].hoverPause) {
 				$('.cs-' + el.id).mouseover(function(){
@@ -190,68 +192,74 @@
 
 		// navigation
 		var setNavigation = function (el) {
-			var k;
-
 			// create prev and next
-			$(el).append("<div id='cs-navigation-" + el.id + "'></div>");
-			$('#cs-navigation-' + el.id).hide();
+			if (params[el.id].showNavigationPrevNext) {
+				$(el).append("<div id='cs-navigation-" + el.id + "'></div>");
 
-			$('#cs-navigation-' + el.id).append("<a href='#' id='cs-prev-" + el.id + "' class='cs-prev'>"+params[el.id].prevText+"</a>");
-			$('#cs-navigation-' + el.id).append("<a href='#' id='cs-next-" + el.id + "' class='cs-next'>"+params[el.id].nextText+"</a>");
-			$('#cs-prev-' + el.id).css({
-				'position'		: 'absolute',
-				'top'			: params[el.id].height / 2 - 15,
-				'left'			: 0,
-				'z-index'		: 1001,
-				'line-height'	: '30px',
-				'opacity'		: params[el.id].opacity
-			}).click( function(e){
-				e.preventDefault();
-				transition(el,'prev');
-				transitionCall(el);
-			}).mouseover( function(){ $('#cs-navigation-' + el.id).show(); });
+				if (!params[el.id].navigationPrevNextAlwaysShown)
+					$('#cs-navigation-' + el.id).hide();
 
-			$('#cs-next-' + el.id).css({
-				'position'		: 'absolute',
-				'top'			: params[el.id].height / 2 - 15,
-				'right'			: 0,
-				'z-index'		: 1001,
-				'line-height'	: '30px',
-				'opacity'		: params[el.id].opacity
-			}).click( function(e){
-				e.preventDefault();
-				transition(el);
-				transitionCall(el);
-			}).mouseover( function(){ $('#cs-navigation-' + el.id).show(); });
+				$('#cs-navigation-' + el.id).append("<a href='#' id='cs-prev-" + el.id + "' class='cs-prev'>"+params[el.id].prevText+"</a>");
+				$('#cs-navigation-' + el.id).append("<a href='#' id='cs-next-" + el.id + "' class='cs-next'>"+params[el.id].nextText+"</a>");
+				$('#cs-prev-' + el.id).css({
+					'position'		: 'absolute',
+					'top'			: params[el.id].height / 2 - 15,
+					'left'			: 0,
+					'z-index'		: 1001,
+					'line-height'	: '30px',
+					'opacity'		: params[el.id].opacity
+				}).click( function(e){
+					e.preventDefault();
+					transition(el,'prev');
+					transitionCall(el);
+				}).mouseover( function(){ $('#cs-navigation-' + el.id).show(); });
 
-			// image buttons
-			$("<div id='cs-buttons-" + el.id + "' class='cs-buttons'></div>").appendTo($('#coin-slider-' + el.id));
+				$('#cs-next-' + el.id).css({
+					'position'		: 'absolute',
+					'top'			: params[el.id].height / 2 - 15,
+					'right'			: 0,
+					'z-index'		: 1001,
+					'line-height'	: '30px',
+					'opacity'		: params[el.id].opacity
+				}).click( function(e){
+					e.preventDefault();
+					transition(el);
+					transitionCall(el);
+				}).mouseover( function(){ $('#cs-navigation-' + el.id).show(); });
 
-			for (k = 1; k < images[el.id].length + 1; k++){
-				$('#cs-buttons-' + el.id).append("<a href='#' class='cs-button-" + el.id + "' id='cs-button-" + el.id + "-" + k + "'>" + k + "</a>");
+				$('#cs-navigation-' + el.id + ' a').mouseout(function(){
+					if (!params[el.id].navigationPrevNextAlwaysShown)
+						$('#cs-navigation-' + el.id).hide();
+
+					params[el.id].pause = false;
+				});
 			}
 
-			$.each($('.cs-button-' + el.id), function(i,item){
-				$(item).click( function(e){
-					$('.cs-button-' + el.id).removeClass('cs-active');
-					$(this).addClass('cs-active');
-					e.preventDefault();
-					transition(el,i);
-					transitionCall(el);
+			// image buttons
+			if (params[el.id].showNavigationButtons) {
+				$("<div id='cs-buttons-" + el.id + "' class='cs-buttons'></div>").appendTo($('#coin-slider-' + el.id));
+
+				var k;
+				for (k = 1; k < images[el.id].length + 1; k++){
+					$('#cs-buttons-' + el.id).append("<a href='#' class='cs-button-" + el.id + "' id='cs-button-" + el.id + "-" + k + "'>" + k + "</a>");
+				}
+
+				$.each($('.cs-button-' + el.id), function(i,item){
+					$(item).click( function(e){
+						$('.cs-button-' + el.id).removeClass('cs-active');
+						$(this).addClass('cs-active');
+						e.preventDefault();
+						transition(el,i);
+						transitionCall(el);
+					});
 				});
-			});
 
-			$('#cs-navigation-' + el.id + ' a').mouseout(function(){
-				$('#cs-navigation-' + el.id).hide();
-				params[el.id].pause = false;
-			});
-
-			$("#cs-buttons-" + el.id).css({
-				'left'			: '50%',
-				'margin-left'	: -images[el.id].length * 15 / 2 - 5,
-				'position'		: 'relative'
-			});
-				
+				$("#cs-buttons-" + el.id).css({
+					'left'			: '50%',
+					'margin-left'	: -images[el.id].length * 15 / 2 - 5,
+					'position'		: 'relative'
+				});
+			}
 		};
 
 		// effects
@@ -514,7 +522,10 @@
 		links : true, // show images as links
 		hoverPause: true, // pause on hover
 		prevText: 'prev',
-		nextText: 'next'
+		nextText: 'next',
+		showNavigationPrevNext: true,
+		showNavigationButtons: true,
+		navigationPrevNextAlwaysShown: false
 	};
 	
 })(jQuery);
