@@ -4,7 +4,7 @@
  * @requires jQuery v1.2.2 or later
  * @author Ivan Lazarevic
  * Examples and documentation at: http://workshop.rs/projects/coin-slider/
- 
+
  * Licensed under MIT licence:
  *   http://www.opensource.org/licenses/mit-license.php
 **/
@@ -85,21 +85,23 @@
 
 			}
 
-			$('.cs-' + el.id).mouseover(function(){
-				$('#cs-navigation-' + el.id).show();
-			});
+			if(params[el.id].navigation === true) {
+				$('.cs-' + el.id).mouseover(function(){
+					$('#cs-navigation-' + el.id).show();
+				});
 
-			$('.cs-' + el.id).mouseout(function(){
-				$('#cs-navigation-' + el.id).hide();
-			});
+				$('.cs-' + el.id).mouseout(function(){
+					$('#cs-navigation-' + el.id).hide();
+				});
 
-			$('#cs-title-' + el.id).mouseover(function(){
-				$('#cs-navigation-' + el.id).show();
-			});
+				$('#cs-title-' + el.id).mouseover(function(){
+					$('#cs-navigation-' + el.id).show();
+				});
 
-			$('#cs-title-' + el.id).mouseout(function(){
-				$('#cs-navigation-' + el.id).hide();
-			});
+				$('#cs-title-' + el.id).mouseout(function(){
+					$('#cs-navigation-' + el.id).hide();
+				});
+			}
 
 			if (params[el.id].hoverPause) {
 				$('.cs-' + el.id).mouseover(function(){
@@ -140,9 +142,9 @@
 
 			squarePos[el.id] = 0;
 			appInterval[el.id] = setInterval(function() { appereance(el,order[el.id][squarePos[el.id]]);  },params[el.id].sDelay);
-					
+
 			$(el).css({ 'background-image': 'url(' + images[el.id][imagePos[el.id]] + ')' });
-			
+
 			if (typeof(direction) == "undefined") {
 				imagePos[el.id]++;
 			} else {
@@ -152,27 +154,27 @@
 					imagePos[el.id] = direction;
 				}
 			}
-		
+
 			if (imagePos[el.id] == images[el.id].length) {
 				imagePos[el.id] = 0;
 			}
-			
+
 			if (imagePos[el.id] == -1) {
 				imagePos[el.id] = images[el.id].length-1;
 			}
-	
+
 			$('.cs-button-' + el.id).removeClass('cs-active');
 			$('#cs-button-' + el.id + "-" + (imagePos[el.id] + 1)).addClass('cs-active');
-			
+
 			if (titles[el.id][imagePos[el.id]]) {
 				$('#cs-title-' + el.id).css({ 'opacity' : 0 }).animate({ 'opacity' : params[el.id].opacity }, params[el.id].titleSpeed);
 				$('#cs-title-' + el.id).html(titles[el.id][imagePos[el.id]]);
 			} else {
 				$('#cs-title-' + el.id).css('opacity',0);
 			}
-				
+
 		};
-		
+
 		var appereance = function (el, sid) {
 
 			$('.cs-' + el.id).attr('href',links[el.id][imagePos[el.id]]).attr('target',linksTarget[el.id][imagePos[el.id]]);
@@ -185,7 +187,7 @@
 			$('#cs-' + el.id + sid).css({ opacity: 0, 'background-image': 'url(' + images[el.id][imagePos[el.id]] + ')' });
 			$('#cs-' + el.id + sid).animate({ opacity: 1 }, 300);
 			squarePos[el.id]++;
-			
+
 		};
 
 		// navigation
@@ -194,7 +196,10 @@
 
 			// create prev and next
 			$(el).append("<div id='cs-navigation-" + el.id + "'></div>");
-			$('#cs-navigation-' + el.id).hide();
+
+			if(params[el.id].navigation === true) {
+				$('#cs-navigation-' + el.id).hide();
+			}
 
 			$('#cs-navigation-' + el.id).append("<a href='#' id='cs-prev-" + el.id + "' class='cs-prev'>"+params[el.id].prevText+"</a>");
 			$('#cs-navigation-' + el.id).append("<a href='#' id='cs-next-" + el.id + "' class='cs-next'>"+params[el.id].nextText+"</a>");
@@ -242,7 +247,10 @@
 			});
 
 			$('#cs-navigation-' + el.id + ' a').mouseout(function(){
-				$('#cs-navigation-' + el.id).hide();
+				if(params[el.id].navigation === true) {
+					$('#cs-navigation-' + el.id).hide();
+				}
+
 				params[el.id].pause = false;
 			});
 
@@ -251,7 +259,7 @@
 				'margin-left'	: -images[el.id].length * 15 / 2 - 5,
 				'position'		: 'relative'
 			});
-				
+
 		};
 
 		// effects
@@ -351,7 +359,7 @@
 							case 1 : x++; break;
 							case 2 : y--; break;
 							case 3 : x--; break;
-						
+
 						}
 					}
 				}
@@ -364,12 +372,12 @@
 					case 2 : m--; y--; break;
 					case 3 : n--; x--; break;
 				}
-				
+
 				check = max(n,m) - min(n,m);
 				if (m <= check && n <= check) {
 					dowhile = false;
 				}
-									
+
 			}
 		};
 
@@ -424,7 +432,7 @@
 					order[el.id][counter] = i+''+j;
 					counter++;
 				}
-				
+
 			}
 		};
 
@@ -435,7 +443,7 @@
 				return n;
 			}
 		};
-		
+
 		var max = function (n,m) {
 			if(n < m) {
 				return m;
@@ -443,7 +451,7 @@
 				return n;
 			}
 		};
-	
+
 		var init = function (el) {
 
 			order[el.id]		= [];	// order of square appereance
@@ -495,10 +503,10 @@
 				init(this);
 			}
 		);
-	
+
 
 	};
-	
+
 	// default values
 	$.fn.coinslider.defaults = {
 		width: 565, // width of slider panel
@@ -510,11 +518,11 @@
 		opacity: 0.7, // opacity of title and navigation
 		titleSpeed: 500, // speed of title appereance in ms
 		effect: '', // random, swirl, rain, straight
-		navigation: true, // prev next and buttons
+		navigation: true, // 'false=hide|true=auto|show' prev next and buttons
 		links : true, // show images as links
 		hoverPause: true, // pause on hover
 		prevText: 'prev',
 		nextText: 'next'
 	};
-	
+
 })(jQuery);
