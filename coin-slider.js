@@ -518,7 +518,7 @@
 		opacity: 0.7, // opacity of title and navigation
 		titleSpeed: 500, // speed of title appereance in ms
 		effect: '', // random, swirl, rain, straight
-		navigation: true, // 'false=hide|true=auto|show' prev next and buttons
+		navigation: true, // 'false=hide|true=auto|visible' prev next and buttons
 		links : true, // show images as links
 		hoverPause: true, // pause on hover
 		prevText: 'prev',
