@@ -140,9 +140,9 @@
 
 			squarePos[el.id] = 0;
 			appInterval[el.id] = setInterval(function() { appereance(el,order[el.id][squarePos[el.id]]);  },params[el.id].sDelay);
-					
+
 			$(el).css({ 'background-image': 'url(' + images[el.id][imagePos[el.id]] + ')' });
-			
+
 			if (typeof(direction) == "undefined") {
 				imagePos[el.id]++;
 			} else {
@@ -152,27 +152,27 @@
 					imagePos[el.id] = direction;
 				}
 			}
-		
+
 			if (imagePos[el.id] == images[el.id].length) {
 				imagePos[el.id] = 0;
 			}
-			
+
 			if (imagePos[el.id] == -1) {
 				imagePos[el.id] = images[el.id].length-1;
 			}
-	
+
 			$('.cs-button-' + el.id).removeClass('cs-active');
 			$('#cs-button-' + el.id + "-" + (imagePos[el.id] + 1)).addClass('cs-active');
-			
+
 			if (titles[el.id][imagePos[el.id]]) {
 				$('#cs-title-' + el.id).css({ 'opacity' : 0 }).animate({ 'opacity' : params[el.id].opacity }, params[el.id].titleSpeed);
 				$('#cs-title-' + el.id).html(titles[el.id][imagePos[el.id]]);
 			} else {
 				$('#cs-title-' + el.id).css('opacity',0);
 			}
-				
+
 		};
-		
+
 		var appereance = function (el, sid) {
 
 			$('.cs-' + el.id).attr('href',links[el.id][imagePos[el.id]]).attr('target',linksTarget[el.id][imagePos[el.id]]);
@@ -185,7 +185,7 @@
 			$('#cs-' + el.id + sid).css({ opacity: 0, 'background-image': 'url(' + images[el.id][imagePos[el.id]] + ')' });
 			$('#cs-' + el.id + sid).animate({ opacity: 1 }, 300);
 			squarePos[el.id]++;
-			
+
 		};
 
 		// navigation
@@ -251,7 +251,7 @@
 				'margin-left'	: -images[el.id].length * 15 / 2 - 5,
 				'position'		: 'relative'
 			});
-				
+
 		};
 
 		// effects
@@ -340,18 +340,18 @@
 
 				num = (going === 0 || going === 2) ? m : n;
 
-				for( i=1; i<=num; i++){
+				for (i = 1; i <= num; i++){
 
-					order[el.id][c] = x + '' + y;
+					order[el.id][c] = x + "" + y;
 					c++;
 
-					if( i != num){
+					if (i != num) {
 						switch(going){
 							case 0 : y++; break;
 							case 1 : x++; break;
 							case 2 : y--; break;
 							case 3 : x--; break;
-						
+
 						}
 					}
 				}
@@ -364,12 +364,12 @@
 					case 2 : m--; y--; break;
 					case 3 : n--; x--; break;
 				}
-				
+
 				check = max(n,m) - min(n,m);
 				if (m <= check && n <= check) {
 					dowhile = false;
 				}
-									
+
 			}
 		};
 
@@ -389,7 +389,7 @@
 				for (i = from; i <= to; i++) {
 					order[el.id][c] = i + '' + parseInt(to2 - i + 1);
 					c++;
-				}
+			}
 
 				to2++;
 
@@ -421,29 +421,28 @@
 
 			for (i = 1; i <= params[el.id].sph; i++) {
 				for (j = 1; j <= params[el.id].spw; j++) {
-					order[el.id][counter] = i+''+j;
+					order[el.id][counter] = i + '' + j;
 					counter++;
 				}
-				
 			}
 		};
 
 		var min = function (n,m) {
-			if(n > m) {
+			if (n > m) {
 				return m;
 			} else {
 				return n;
 			}
 		};
-		
+
 		var max = function (n,m) {
-			if(n < m) {
+			if (n < m) {
 				return m;
 			} else {
 				return n;
 			}
 		};
-	
+
 		var init = function (el) {
 
 			order[el.id]		= [];	// order of square appereance
@@ -469,7 +468,7 @@
 
 			// set panel
 			$(el).css({
-				'background-image':'url(' + images[el.id][0] + ')',
+				'background-image': 'url(' + images[el.id][0] + ')',
 				'width': params[el.id].width,
 				'height': params[el.id].height,
 				'position': 'relative',
@@ -495,10 +494,9 @@
 				init(this);
 			}
 		);
-	
 
 	};
-	
+
 	// default values
 	$.fn.coinslider.defaults = {
 		width: 565, // width of slider panel
@@ -514,5 +512,5 @@
 		links : true, // show images as links
 		hoverPause: true // pause on hover
 	};
-	
+
 })(jQuery);
