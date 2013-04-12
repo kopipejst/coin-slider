@@ -4,11 +4,14 @@
     "version" : "1.0.0",
     "author" : { 
         "name" : "Ivan Lazarevic",
-        "url" : "http://workshop.rs"
+        "url" : "http://workshop.rs",
+        "email": "devet.sest@gmail.com"
     },
     "bugs" : "https://github.com/kopipejst/coin-slider/issues",
     "demo" : "http://workshop.rs/projects/coin-slider/",
-    "dependencies" : { "jquery" : ">=1.2.2" },
+    "dependencies" : { 
+        "jquery" : ">=1.2.2" 
+    },
     "description" : "jQuery Image Slider with Unique Effects",
     "docs" : "http://workshop.rs/2010/04/coin-slider-image-slider-with-unique-effects/",
     "download" : "http://workshop.rs/2010/04/coin-slider-image-slider-with-unique-effects/",
