@@ -4,7 +4,7 @@
  * @requires jQuery v1.2.2 or later
  * @author Ivan Lazarevic
  * Examples and documentation at: http://workshop.rs/projects/coin-slider/
- 
+
  * Licensed under MIT licence:
  *   http://www.opensource.org/licenses/mit-license.php
 **/
@@ -85,21 +85,23 @@
 
 			}
 
-			$('.cs-' + el.id).mouseover(function(){
-				$('#cs-navigation-' + el.id).show();
-			});
+			if(params[el.id].navigation === true) {
+				$('.cs-' + el.id).mouseover(function(){
+					$('#cs-navigation-' + el.id).show();
+				});
 
-			$('.cs-' + el.id).mouseout(function(){
-				$('#cs-navigation-' + el.id).hide();
-			});
+				$('.cs-' + el.id).mouseout(function(){
+					$('#cs-navigation-' + el.id).hide();
+				});
 
-			$('#cs-title-' + el.id).mouseover(function(){
-				$('#cs-navigation-' + el.id).show();
-			});
+				$('#cs-title-' + el.id).mouseover(function(){
+					$('#cs-navigation-' + el.id).show();
+				});
 
-			$('#cs-title-' + el.id).mouseout(function(){
-				$('#cs-navigation-' + el.id).hide();
-			});
+				$('#cs-title-' + el.id).mouseout(function(){
+					$('#cs-navigation-' + el.id).hide();
+				});
+			}
 
 			if (params[el.id].hoverPause) {
 				$('.cs-' + el.id).mouseover(function(){
@@ -194,7 +196,10 @@
 
 			// create prev and next
 			$(el).append("<div id='cs-navigation-" + el.id + "'></div>");
-			$('#cs-navigation-' + el.id).hide();
+
+			if(params[el.id].navigation === true) {
+				$('#cs-navigation-' + el.id).hide();
+			}
 
 			$('#cs-navigation-' + el.id).append("<a href='#' id='cs-prev-" + el.id + "' class='cs-prev'>"+params[el.id].prevText+"</a>");
 			$('#cs-navigation-' + el.id).append("<a href='#' id='cs-next-" + el.id + "' class='cs-next'>"+params[el.id].nextText+"</a>");
@@ -242,7 +247,10 @@
 			});
 
 			$('#cs-navigation-' + el.id + ' a').mouseout(function(){
-				$('#cs-navigation-' + el.id).hide();
+				if(params[el.id].navigation === true) {
+					$('#cs-navigation-' + el.id).hide();
+				}
+
 				params[el.id].pause = false;
 			});
 
@@ -494,7 +502,6 @@
 				init(this);
 			}
 		);
-
 	};
 
 	// default values
@@ -508,7 +515,7 @@
 		opacity: 0.7, // opacity of title and navigation
 		titleSpeed: 500, // speed of title appereance in ms
 		effect: '', // random, swirl, rain, straight
-		navigation: true, // prev next and buttons
+		navigation: true, // false=hide|true=show on hover|visible=never hide prev next
 		links : true, // show images as links
 		hoverPause: true, // pause on hover
 		prevText: 'prev',
