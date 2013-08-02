@@ -21,7 +21,9 @@
 		imagePos	= [],
 		appInterval	= [],
 		squarePos	= [],
-		reverse		= [];
+		reverse		= [],
+		uniqueIDPrefix	= "coinsliderUniqueID",
+		uniqueIDCounter	= 0;
 
 	$.fn.coinslider = $.fn.CoinSlider = function (options) {
 
@@ -455,6 +457,10 @@
 		};
 
 		var init = function (el) {
+
+			if( el.id === '' ){
+				el.id = uniqueIDPrefix + uniqueIDCounter++;
+			}
 
 			order[el.id]		= [];	// order of square appereance
 			images[el.id]		= [];
