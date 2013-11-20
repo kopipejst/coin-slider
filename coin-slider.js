@@ -146,7 +146,7 @@
 			squarePos[el.id] = 0;
 			appInterval[el.id] = setInterval(function() { appereance(el,order[el.id][squarePos[el.id]]);  },params[el.id].sDelay);
 
-			$(el).css({ 'background-image': 'url(' + images[el.id][imagePos[el.id]] + ')' });
+			
 
 			if (typeof(direction) == "undefined") {
 				imagePos[el.id]++;
@@ -165,6 +165,8 @@
 			if (imagePos[el.id] == -1) {
 				imagePos[el.id] = images[el.id].length-1;
 			}
+
+			$(el).css({ 'background-image': 'url(' + images[el.id][imagePos[el.id]] + ')' });
 
 			$('.cs-button-' + el.id).removeClass('cs-active');
 			$('#cs-button-' + el.id + "-" + (imagePos[el.id] + 1)).addClass('cs-active');
