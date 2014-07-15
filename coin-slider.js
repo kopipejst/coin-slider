@@ -146,7 +146,7 @@
 			squarePos[el.id] = 0;
 			appInterval[el.id] = setInterval(function() { appereance(el,order[el.id][squarePos[el.id]]);  },params[el.id].sDelay);
 
-			$(el).css({ 'background-image': 'url(' + images[el.id][imagePos[el.id]] + ')' });
+			$(el).css({ 'background-image': 'url("' + images[el.id][imagePos[el.id]] + '")' });
 
 			if (typeof(direction) == "undefined") {
 				imagePos[el.id]++;
@@ -187,7 +187,7 @@
 				return;
 			}
 
-			$('#cs-' + el.id + sid).css({ opacity: 0, 'background-image': 'url(' + images[el.id][imagePos[el.id]] + ')' });
+			$('#cs-' + el.id + sid).css({ opacity: 0, 'background-image': 'url("' + images[el.id][imagePos[el.id]] + '")' });
 			$('#cs-' + el.id + sid).animate({ opacity: 1 }, 300);
 			squarePos[el.id]++;
 
@@ -485,7 +485,7 @@
 
 			// set panel
 			$(el).css({
-				'background-image': 'url(' + images[el.id][0] + ')',
+				'background-image': 'url("' + images[el.id][0] + '")',
 				'width': params[el.id].width,
 				'height': params[el.id].height,
 				'position': 'relative',
