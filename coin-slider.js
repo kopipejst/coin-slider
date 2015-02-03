@@ -499,7 +499,8 @@
 
 			// create title bar
 			$('#' + el.id).append("<div class='cs-title' id='cs-title-" + el.id + "' style='position: absolute; bottom:0; left: 0; z-index: 1000;'></div>");
-
+			$('#cs-title-' + el.id).css('opacity', 0);
+			
 			setFields(el);
 
 			if(params[el.id].navigation){
