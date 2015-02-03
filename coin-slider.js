@@ -170,8 +170,13 @@
 			$('#cs-button-' + el.id + "-" + (imagePos[el.id] + 1)).addClass('cs-active');
 
 			if (titles[el.id][imagePos[el.id]]) {
-				$('#cs-title-' + el.id).css({ 'opacity' : 0 }).animate({ 'opacity' : params[el.id].opacity }, params[el.id].titleSpeed);
-				$('#cs-title-' + el.id).html(titles[el.id][imagePos[el.id]]);
+				$('#cs-title-' + el.id).animate({ 'opacity' : 0 }, {
+					duration: params[el.id].titleSpeed,
+					complete: function() {
+						$('#cs-title-' + el.id).html(titles[el.id][imagePos[el.id]]);
+						$('#cs-title-' + el.id).animate({ 'opacity' : params[el.id].opacity }, params[el.id].titleSpeed);
+					}
+				});
 			} else {
 				$('#cs-title-' + el.id).css('opacity',0);
 			}
