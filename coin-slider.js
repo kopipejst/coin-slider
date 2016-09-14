@@ -475,7 +475,7 @@
 
 			// create images, links and titles arrays
 			$.each($('#' + el.id + ' img'), function (i, item) {
-				images[el.id][i]		= $(item).attr('src');
+				images[el.id][i]		= $(item).attr('src') || item.src; // ios fix
 				links[el.id][i]			= $(item).parent().is('a') ? $(item).parent().attr('href') : '';
 				linksTarget[el.id][i]	= $(item).parent().is('a') ? $(item).parent().attr('target') : '';
 				titles[el.id][i]		= $(item).next().is('span') ? $(item).next().html() : '';
