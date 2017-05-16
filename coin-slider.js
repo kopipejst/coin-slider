@@ -170,8 +170,13 @@
 			$('#cs-button-' + el.id + "-" + (imagePos[el.id] + 1)).addClass('cs-active');
 
 			if (titles[el.id][imagePos[el.id]]) {
-				$('#cs-title-' + el.id).css({ 'opacity' : 0 }).animate({ 'opacity' : params[el.id].opacity }, params[el.id].titleSpeed);
-				$('#cs-title-' + el.id).html(titles[el.id][imagePos[el.id]]);
+				$('#cs-title-' + el.id).animate({ 'opacity' : 0 }, {
+					duration: params[el.id].titleSpeed,
+					complete: function() {
+						$('#cs-title-' + el.id).html(titles[el.id][imagePos[el.id]]);
+						$('#cs-title-' + el.id).animate({ 'opacity' : params[el.id].opacity }, params[el.id].titleSpeed);
+					}
+				});
 			} else {
 				$('#cs-title-' + el.id).css('opacity',0);
 			}
@@ -494,7 +499,8 @@
 
 			// create title bar
 			$('#' + el.id).append("<div class='cs-title' id='cs-title-" + el.id + "' style='position: absolute; bottom:0; left: 0; z-index: 1000;'></div>");
-
+			$('#cs-title-' + el.id).css('opacity', 0);
+			
 			setFields(el);
 
 			if(params[el.id].navigation){
